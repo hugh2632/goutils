@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+</head>
+<body>
+<input id="w" type="text" width="200px"/><button type="submit" onclick="search()" value="搜索"/>
+<div id="tbl">
+
+</div>
+
+</body>
+<script>
+	function search() {
+		$('#tblGridView').datagrid({
+			async: false,
+			fitColumns: true,
+			pagination: false,
+			pageNumber: 1,
+			pageSize: 10,
+			pageList: [10, 20, 30, 50],
+			rownumbers: true,
+			singleSelect: true,
+			url: '/search',
+			method: 'post',
+			queryParams: {
+				key: $('#w').val()
+			},
+			columns: [[
+				{ field: 'Title', title: '标题', width: 300, align: 'center', sortable: false }
+				, { field: 'Date', title: '日期', width: 100, align: 'center', sortable: false }
+				, { field: 'Url', title: '链接', width: 600, align: 'center', sortable: false
+					, formatter: function (val, row) {
+						var view = "<a href=" + row.Url + "  class=\"easyui-linkbutton\" >" + row.Url + "</a>";
+						return view;
+					}}
+			]]
+		});
+	}
+</script>
+</html>
